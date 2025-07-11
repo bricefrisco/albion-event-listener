@@ -1,11 +1,14 @@
 package listener
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
-	"os"
 	"strconv"
 )
+
+//go:embed assets/*.json
+var assets embed.FS
 
 var (
 	eventCodes     map[string]string
@@ -14,12 +17,12 @@ var (
 
 func init() {
 	// Read event and operation codes from JSON files
-	ec, err := os.ReadFile("../assets/eventCodes.json")
+	ec, err := assets.ReadFile("assets/eventCodes.json")
 	if err != nil {
 		panic(fmt.Sprintf("failed to read event codes: %v", err))
 	}
 
-	oc, err := os.ReadFile("../assets/operationCodes.json")
+	oc, err := assets.ReadFile("assets/operationCodes.json")
 	if err != nil {
 		panic(fmt.Sprintf("failed to read operation codes: %v", err))
 	}
