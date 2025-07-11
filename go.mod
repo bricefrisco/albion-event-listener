@@ -1,6 +1,6 @@
 module github.com/bricefrisco/albion-event-listener
 
-go 1.23.10
+go 1.24.5
 
 require (
 	github.com/google/gopacket v1.1.19
