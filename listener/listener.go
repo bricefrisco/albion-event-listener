@@ -8,6 +8,12 @@ import (
 	"sync"
 )
 
+type Message struct {
+	Type string `json:"type"`
+	Name string `json:"name"`
+	Data any    `json:"data"`
+}
+
 var buffer = newFragmentBuffer()
 
 type Listener struct {
@@ -116,11 +122,5 @@ func (l *Listener) onReliableCommand(command *photonCommand) {
 		return
 	}
 
-	if params[252] != nil {
-		l.messages <- toMessage("event", params)
-	} else if params[253] != nil {
-		l.messages <- toMessage("operation", params)
-	} else {
-		l.messages <- toMessage("movement", params)
-	}
+	l.messages <- toMessage(params)
 }

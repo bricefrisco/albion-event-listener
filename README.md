@@ -1,5 +1,5 @@
-# Albion Event Listener
-Albion event listener written in Golang.
+# Albion Listener
+Albion event and operation listener written in Golang.
 
 Most code coming from [albiondata-client](https://github.com/ao-data/albiondata-client), with minor adjustments.
 
@@ -14,15 +14,8 @@ l := listener.NewListener(msgChan)
 go l.Run()
 
 for message := range msgChan {
-  if message.Type === "event" {
-    // Do something with event
-    fmt.Println(message)
-  } else if message.Type === "operation" { 
-    // Do something with operation
-    fmt.Println(message)
-  } else { 
-    // Do something with movement event 
-    fmt.Println(message)
+    // Do something with the message
+    fmt.Println(message.Type, message.Name, message.Data)
   }
 }
 ```
