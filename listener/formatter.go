@@ -85,17 +85,20 @@ func toMessage(msg map[uint8]any) *Message {
 	if msg[252] != nil {
 		eventType = "event"
 		name, ok = eventCodes[fmt.Sprintf("%v", msg[252])]
+		if !ok {
+			fmt.Println("Unknown operation code:", msg[252])
+			name = fmt.Sprintf("Unknown (%v)", msg[252])
+		}
 	} else if msg[253] != nil {
 		eventType = "operation"
 		name, ok = operationCodes[fmt.Sprintf("%v", msg[253])]
+		if !ok {
+			fmt.Println("Unknown operation code:", msg[253])
+			name = fmt.Sprintf("Unknown (%v)", msg[253])
+		}
 	} else {
 		eventType = "event"
 		name = "Move"
-	}
-
-	if !ok {
-		fmt.Println("Unknown event or operation code:", msg[252], msg[253])
-		name = fmt.Sprintf("Unknown (%v)", msg[252])
 	}
 
 	m := &Message{
