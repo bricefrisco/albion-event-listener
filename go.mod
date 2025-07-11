@@ -1,4 +1,4 @@
-module github.com/bricefrisco/albion-event-listener
+module github.com/bricefrisco/albion-listener
 
 go 1.24.5
 
