@@ -9,20 +9,20 @@ Intended to be used as a minimal dependency to build other things.
 
 Usage:
 ```go
-msgChan := make(chan map[uint8]any, 1000)
-listener := photon.NewListener(msgChan)
-go listener.Run()
+msgChan := make(chan *Message, 1000)
+l := listener.NewListener(msgChan)
+go l.Run()
 
 for message := range msgChan {
-  if message[252] != nil {
+  if message.Type === "event" {
     // Do something with event
-    fmt.Println("event", message)
-  } else if message[253] != nil { 
+    fmt.Println(message)
+  } else if message.Type === "operation" { 
     // Do something with operation
-    fmt.Println("operation", message)
+    fmt.Println(message)
   } else { 
     // Do something with movement event 
-    fmt.Println("movement", message)
+    fmt.Println(message)
   }
 }
 ```

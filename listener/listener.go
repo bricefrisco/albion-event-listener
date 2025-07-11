@@ -11,10 +11,10 @@ import (
 var buffer = newFragmentBuffer()
 
 type Listener struct {
-	messages chan map[uint8]any
+	messages chan *Message
 }
 
-func NewListener(messages chan map[uint8]any) *Listener {
+func NewListener(messages chan *Message) *Listener {
 	return &Listener{
 		messages: messages,
 	}
@@ -116,5 +116,11 @@ func (l *Listener) onReliableCommand(command *photonCommand) {
 		return
 	}
 
-	l.messages <- params
+	if params[252] != nil {
+		l.messages <- toMessage("event", params)
+	} else if params[253] != nil {
+		l.messages <- toMessage("operation", params)
+	} else {
+		l.messages <- toMessage("movement", params)
+	}
 }
