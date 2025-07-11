@@ -1,4 +1,4 @@
-package main
+package listener
 
 import (
 	lru "github.com/hashicorp/golang-lru"

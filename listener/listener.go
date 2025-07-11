@@ -1,4 +1,4 @@
-package main
+package listener
 
 import (
 	"github.com/google/gopacket"
